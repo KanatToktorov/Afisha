@@ -23,6 +23,11 @@ class Movie (models.Model):
     def __str__(self):
         return self.title
 
+    def director_name(self):
+        return self.director.name if self.director_id else None
+
+STARS = ((star, '*' * star) for star in range(1, 6))
+
 class Review(models.Model):
     movie = models.ForeignKey(
         Movie,
@@ -30,6 +35,7 @@ class Review(models.Model):
         related_name='reviews'
     )
     text = models.TextField()
+    star = models.IntegerField(default=1, choices=STARS)
 
     def __str__(self):
         return f"{self.movie.title} - {self.text}"
