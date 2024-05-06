@@ -9,6 +9,7 @@ from .serializers import (MovieSerializer, MovieValidateSerializer,
 
 @api_view(['GET', 'POST'])
 def movie_list_api_view(request):
+    print(request.user)
     if request.method == 'GET':
         movies = (Movie.objects.select_related('director').prefetch_related('reviews').all())
         list_ = MovieSerializer(instance=movies, many=True).data
