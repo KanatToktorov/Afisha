@@ -6,7 +6,7 @@ class DirectorSerializer(serializers.ModelSerializer):
     count = serializers.SerializerMethodField()
     class Meta:
         model = Director
-        fields = 'name count'.split()
+        fields = ' id name count'.split()
 
     def get_count(self, director):
         movies = director.movies.all()
