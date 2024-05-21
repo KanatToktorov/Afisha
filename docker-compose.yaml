@@ -1,0 +1,22 @@
+version: '3'
+services:
+  cinemadb:
+    image: "postgres:12"
+    environment:
+      POSTGRES_USER: cinema_user
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: cinema
+    ports:
+      - "5433:5432"
+    volumes:
+      - "postgres-data:/var/lib/postgresql/data"
+  backend:
+    build:
+      context: .
+    command: sh -c "python manage.py runserver 0.0.0.0:8000"
+    port:
+      - "8000:8000"
+    depends_on:
+      - cinemadb
+volumes:
+  postgres-data:
